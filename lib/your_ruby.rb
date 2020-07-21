@@ -11,33 +11,34 @@ module YourRuby
   end
 
   def smallest_rectangle_of_aspect(ratio, rectangle)
-    # aspect ratio = width/height
+    width = rectangle.first
+    height = rectangle.last
+    expect_height = ratio * width
 
-    height = rectangle.first
-    width = rectangle.last
-    expect_width = ratio * height
+    height = ratio * width if expect_height > height
+    width = height / ratio if expect_height < height
 
-    width = ratio * height if expect_width > width
-    height = width / ratio if expect_width < width
-
-    [height, width]
+    [width, height]
   end
 
   def parse_time(str)
-    regex = /([0-1][0-9]|2[0-3])\:([0-5][0-9])/
-    captures = str.match(regex)&.captures
+    time_array = capture_hours_and_mins(str)
 
-    if captures
-      hours_to_seconds = captures.first.to_i * 3600
-      minutes_to_seconds = captures.last.to_i * 60
+    return false unless time_array
 
-      hours_to_seconds + minutes_to_seconds
-    else
-      puts "Argument is not a valid time.\nExamples of valid times are 09:00, 23:59"
-    end
+    hours_to_seconds = hours(time_array) * 3600
+    minutes_to_seconds = minutes(time_array) * 60
+
+    hours_to_seconds + minutes_to_seconds
   end
 
   def finish_time_for_day(date, opening_hours)
+    day = date.strftime('%a')
+    finish_time = opening_hours[day]&.last
+
+    return false unless finish_time
+
+    Time.mktime(2014, 12, 2) + parse_time(finish_time)
   end
 
   def start_time_for_day(date, opening_hours)
@@ -47,5 +48,10 @@ module YourRuby
   end
 
   def duckduckwhy(str, num_results)
+  end
+
+  def capture_hours_and_mins(time_string)
+    regex = /([0-1][0-9]|2[0-3])\:([0-5][0-9])/
+    time_string.match(regex)&.captures
   end
 end
