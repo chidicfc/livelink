@@ -5,12 +5,22 @@ module YourRuby
 
   def fizzbuzz(max)
     (1..max).to_a.map do |n|
-      a = "#{'fizz' if n % 3 == 0}#{'buzz' if n % 5 == 0}"
-      a.empty? ? n : a
+      word = "#{'fizz' if n % 3 == 0}#{'buzz' if n % 5 == 0}"
+      word.empty? ? n : word
     end
   end
 
   def smallest_rectangle_of_aspect(ratio, rectangle)
+    # aspect ratio = width/height
+
+    height = rectangle.first
+    width = rectangle.last
+    expect_width = ratio * height
+
+    width = ratio * height if expect_width > width
+    height = width / ratio if expect_width < width
+
+    [height, width]
   end
 
   def parse_time(str)
