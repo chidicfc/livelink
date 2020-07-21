@@ -4,6 +4,10 @@ module YourRuby
   module_function
 
   def fizzbuzz(max)
+    (1..max).to_a.map do |n|
+      a = "#{'fizz' if n % 3 == 0}#{'buzz' if n % 5 == 0}"
+      a.empty? ? n : a
+    end
   end
 
   def smallest_rectangle_of_aspect(ratio, rectangle)
