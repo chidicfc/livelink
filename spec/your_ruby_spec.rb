@@ -134,6 +134,7 @@ RSpec.describe 'YourRuby' do
         'Fri' => ['09:00', '17:00']
       }
     end
+    let(:error_message) { "Argument is not a valid time.\nExamples of valid times are 09:00, 23:59\n" }
 
     it 'converts 09:00 into number of seconds into the day' do
       expect(YourRuby.parse_time('09:00')).to eq(32_400)
@@ -141,6 +142,10 @@ RSpec.describe 'YourRuby' do
 
     it 'converts 17:30 into number of seconds into the day' do
       expect(YourRuby.parse_time('17:30')).to eq(63_000)
+    end
+
+    it 'outputs an error message when the time is invalid' do
+      expect { YourRuby.parse_time('24:00') }.to output(error_message).to_stdout
     end
   end
 

@@ -24,6 +24,17 @@ module YourRuby
   end
 
   def parse_time(str)
+    regex = /([0-1][0-9]|2[0-3])\:([0-5][0-9])/
+    captures = str.match(regex)&.captures
+
+    if captures
+      hours_to_seconds = captures.first.to_i * 3600
+      minutes_to_seconds = captures.last.to_i * 60
+
+      hours_to_seconds + minutes_to_seconds
+    else
+      puts "Argument is not a valid time.\nExamples of valid times are 09:00, 23:59"
+    end
   end
 
   def finish_time_for_day(date, opening_hours)
