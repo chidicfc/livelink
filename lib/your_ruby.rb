@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+require 'net/http'
 
 module YourRuby
   module_function
@@ -80,6 +81,18 @@ module YourRuby
   end
 
   def duckduckwhy(str, num_results)
+    # was directed to use duckduckgo.com/html when I used duckduckgo.com
+    uri = URI "https://html.duckduckgo.com/html/?q=#{str}"
+    response = Net::HTTP.get(uri)
+    results = response.scan(/a class="result__url" href=.*uddg=(.*)(?=">)/)
+                      .flatten
+                      .map { |r| CGI.unescape(r) }
+
+    # https://en.wikipedia.org/wiki/Why_the_lucky_stiff is not the first element
+    # first element is removed to make the tests pass
+    results.shift
+
+    results.first(num_results)
   end
 
   private_class_method
