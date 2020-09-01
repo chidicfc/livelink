@@ -1,6 +1,4 @@
-# Livelink Ruby Test
-
-The idea is to see how you write ruby and how you think about solving problems. The majority of these tests are real problems taken from our existing codebase. Code reuse and additional test coverage where appropriate is encouraged.
+# Ruby Test
 
 Tests are in `spec/your_ruby_spec.rb`. Run them using `bundle exec rspec` from the top level directory.
 Your solutions should go in `lib/your_ruby.rb`.
