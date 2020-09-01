@@ -1,4 +1,4 @@
-# Ruby Test
+# Ruby Tasks
 
 Tests are in `spec/your_ruby_spec.rb`. Run them using `bundle exec rspec` from the top level directory.
 Your solutions should go in `lib/your_ruby.rb`.
